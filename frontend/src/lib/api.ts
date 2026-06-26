@@ -1,6 +1,9 @@
 // src/lib/api.ts
 import axios from "axios";
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+// const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+const API_URL = "https://dsena.onrender.com";
+
 export const api = axios.create({ baseURL: API_URL, headers: { "Content-Type": "application/json" } });
 api.interceptors.request.use((c) => {
   if (typeof window !== "undefined") { const t = localStorage.getItem("access_token"); if (t) c.headers.Authorization = `Bearer ${t}`; }
