@@ -1,5 +1,7 @@
 "use client";
-import { useState } from "react";
+// import { useState } from "react";
+
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +15,7 @@ const schema = z.object({
 }).refine((d) => d.password === d.confirm, { message: "Passwords don't match", path: ["confirm"] });
 type F = z.infer<typeof schema>;
 
-export default function ResetPasswordPage() {
+export default function ResetPasswordContent() {
   const params = useSearchParams();
   const router = useRouter();
   const token = params.get("token") || "";
@@ -57,4 +59,18 @@ export default function ResetPasswordPage() {
       </div>
     </div>
   );
+}
+
+export default function ResetPasswordPage() {
+    return (
+        <Suspense
+            fallback={
+                <div className="min-h-screen flex items-center justify-center">
+                    Loading...
+                </div>
+            }
+        >
+            <ResetPasswordContent />
+        </Suspense>
+    );
 }
