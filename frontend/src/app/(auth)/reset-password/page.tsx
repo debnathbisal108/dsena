@@ -15,7 +15,7 @@ const schema = z.object({
 }).refine((d) => d.password === d.confirm, { message: "Passwords don't match", path: ["confirm"] });
 type F = z.infer<typeof schema>;
 
-export default function ResetPasswordContent() {
+function ResetPasswordContent() {
   const params = useSearchParams();
   const router = useRouter();
   const token = params.get("token") || "";
